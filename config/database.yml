@@ -52,5 +52,5 @@ production:
   encoding: unicode
   pool: 5
   database: microposts_production
-  username: maicroposts
+  username: microposts
   password: <%= ENV['MICROPOSTS_DATABASE_PASSWORD'] %>
