@@ -8,7 +8,7 @@ class MicropostsController < ApplicationController
       flash[:success] = 'メッセージを投稿しました。'
       redirect_to root_url
     else
-      @microposts = current_user.microposts.order('created_at DESC').page(params[:page])
+      @microposts = current_user.feed_microposts.order('created_at DESC').page(params[:page])
       flash.now[:danger] = 'メッセージの投稿に失敗しました。'
       render 'toppages/index'
     end
@@ -19,16 +19,18 @@ class MicropostsController < ApplicationController
     flash[:succes] = 'メッセージを削除しました。'
     redirect_back(fallback_location: root_path)
   end
-
+  
   private
 
   def micropost_params
     params.require(:micropost).permit(:content)
   end
+  
   def correct_user
     @micropost = current_user.microposts.find_by(id: params[:id])
     unless @micropost
       redirect_to root_url
     end
   end
+  
 end
